@@ -31,11 +31,7 @@ export const getMoviesByYear = async (year: string, page: number): Promise<Movie
                         .filter((person: any) => person.known_for_department === 'Editing')
                         .map((editor: any) => editor.name);
                 } catch (error) {
-                    if (error instanceof Error) {
-                        console.warn(`Failed to fetch credits for movie ID ${movie.id}: ${error.message}`);
-                    } else {
-                        console.warn(`Unexpected error while fetching credits for movie ID ${movie.id}:`, error);
-                    }
+                    console.warn(`Credits fetch failed for movie ID ${movie.id}: ${error.message}`);
                 }
 
                 return {
@@ -49,11 +45,11 @@ export const getMoviesByYear = async (year: string, page: number): Promise<Movie
 
         return movies;
     } catch (error) {
-        if (error instanceof Error) {
-            console.error(`Error in getMoviesByYear: ${error.message}`);
-        } else {
-            console.error(`Unexpected error in getMoviesByYear:`, error);
-        }
-        throw new Error('Failed to fetch movies');
+        // Log internal error for debugging
+        if(error instanceof Error)
+        console.error(`Error in getMoviesByYear: ${error.message || error}`);
+
+        // Throw a client-safe error
+        throw new Error('Failed to fetch movies. Please try again later.');
     }
 };

@@ -12,12 +12,17 @@ export const getMovies = async (req: Request, res: Response, next: NextFunction)
         const { year, page } = req.query;
 
         if (!year || isNaN(Number(page))) {
-            return res.status(400).json({ message: 'Year and page are required query parameters' });
+            const error = new Error('Year and page query parameters are required.');
+            (error as any).status = 400; // Bad Request
+            throw error;
         }
 
         const movies = await getMoviesByYear(year as string, parseInt(page as string, 10));
-        res.status(200).json(movies);
+        res.status(200).json({
+            success: true,
+            data: movies,
+        });
     } catch (error) {
-        next(error); // Pass error to Express error handler
+        next(error); // Forward error to the global error handler
     }
 };
