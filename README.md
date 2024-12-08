@@ -55,4 +55,6 @@ npm run dev
 ### **Step 5: Test an API**
 http://localhost:3000/api/movies?year=2019&page=1
 
+### **Step 6: Run Test Cases**
 
+npm test
