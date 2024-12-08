@@ -37,7 +37,8 @@ Ensure the following are installed on your machine:
 ### **Step 1: Clone the Repository**
 
 
-git clone <your-repository-url>
+git clone https://github.com/ashishreddy0627/movie-api
+
 cd movie-api
 
 ### **Step 2: Install Dependencies**
@@ -45,8 +46,11 @@ npm install
 
 ### **Step 3: Configure Environment Variables**
 Update configuration at src/.env file 
+
 TMDB_API_BASE=https://api.themoviedb.org/3
+
 TMDB_BEARER_TOKEN=your_tmdb_bearer_token
+
 PORT=3000
 
 ### **Step 4: Run the Application**
